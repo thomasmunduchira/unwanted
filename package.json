@@ -1,0 +1,45 @@
+{
+  "name": "unwanted",
+  "version": "1.0.0",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "lint": "eslint ./",
+    "fix": "eslint --fix ./",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precommit-message": "echo \"Linting files before committing. If there are any errors, run 'npm run fix', manually fix the rest of the errors, and add all the changes made to git before trying to commit again.\""
+  },
+  "pre-commit": [
+    "precommit-message",
+    "lint"
+  ],
+  "engines": {
+    "node": "6.10.x",
+    "npm": "3.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomasmunduchira/unwanted.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thomasmunduchira/unwanted/issues"
+  },
+  "homepage": "https://github.com/thomasmunduchira/unwanted#readme",
+  "dependencies": {
+    "body-parser": "1.17.2",
+    "express": "4.15.3",
+    "logger": "0.0.1",
+    "morgan": "1.8.2"
+  },
+  "devDependencies": {
+    "eslint": "4.5.0",
+    "eslint-config-airbnb-base": "11.3.1",
+    "eslint-config-prettier": "2.4.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-prettier": "2.2.0",
+    "nodemon": "1.12.1",
+    "prettier": "1.6.1"
+  }
+}
