@@ -39,7 +39,8 @@
     "logger": "0.0.1",
     "mongoose": "4.11.3",
     "morgan": "1.8.2",
-    "mz": "2.7.0"
+    "mz": "2.7.0",
+    "pre-commit": "^1.2.2"
   },
   "devDependencies": {
     "eslint": "4.5.0",
