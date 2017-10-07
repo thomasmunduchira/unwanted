@@ -29,8 +29,11 @@
   "homepage": "https://github.com/thomasmunduchira/unwanted#readme",
   "dependencies": {
     "body-parser": "1.17.2",
+    "connect-mongo": "1.3.2",
     "express": "4.15.3",
+    "express-session": "1.15.6",
     "logger": "0.0.1",
+    "mongoose": "4.12.0",
     "morgan": "1.8.2"
   },
   "devDependencies": {
