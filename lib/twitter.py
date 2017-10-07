@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 from twitterscraper import query_tweets
 
 id = sys.argv[1]
@@ -11,10 +12,15 @@ except OSError as exception:
     if exception.errno != errno.EEXIST:
         raise
 
-twitterFile = open('./data/' + id + '/twitterData.txt', 'wb')
+data = {
+    'tweets': []
+}
 
 for tweet in query_tweets('from%3A' + username, 100)[:100]:
     text = (tweet.text + '\n').encode('utf-8')
-    twitterFile.write(text)
+    data['tweets'].append({
+        'text': tweet.text
+    })
 
-twitterFile.close()
+with open('./data/' + id + '/twitterData.json', 'w') as outfile:
+    json.dump(data, outfile, indent=4)
