@@ -14,33 +14,34 @@ router.get('*', (req, res) => {
 const processesCallback = (processesFinished, req) => {
   if (processesFinished === 2) {
     const instagramFolder = `./data/${req.session.id}/instagramData`;
-    return fs
-      .readdir(instagramFolder)
-      .then(filenames =>
-        Promise.all(
-          filenames.map(filename => fs.readFile(`${instagramFolder}/${filename}`, 'utf-8'))
+    return (
+      fs
+        .readdir(instagramFolder)
+        .then(filenames =>
+          Promise.all(
+            filenames.map(filename => fs.readFile(`${instagramFolder}/${filename}`, 'utf-8'))
+          )
         )
-      )
-      .then(contents => {
-        const urls = [];
-        for (let i = 0; i < contents.length; i += 1) {
-          let content = contents[i];
-          content = JSON.parse(content);
-          urls.push(content.display_src);
-        }
-        console.log(urls);
-        return urls;
-      })
-      .then(urls => analysis.visionRequest(urls))
-      .then(response => console.log(response))
-      .catch(err => {
-        console.log(err);
-      });
+        .then(contents => {
+          const urls = [];
+          for (let i = 0; i < contents.length; i += 1) {
+            let content = contents[i];
+            content = JSON.parse(content);
+            urls.push(content.display_src);
+          }
+          console.log(urls);
+          return urls;
+        })
+        // .then(urls => analysis.visionRequest(urls))
+        .then(response => console.log(response))
+        .catch(err => {
+          console.log(err);
+        })
+    );
   }
 };
 
 router.post('/data', (req, res) => {
-  console.log('1');
   const { username } = req.body;
   const { id } = req.session;
 
