@@ -14,31 +14,12 @@ const app = express();
 const env = process.env.NODE_ENV || 'development';
 
 mongoose.Promise = global.Promise;
-mongoose
-  .createConnection(config.db.url, {
-    useMongoClient: true,
-  })
-  .then(db => {
-    console.log('Connected to database!');
-
-    const sess = {
-      store: new MongoStore({
-        mongooseConnection: db,
-      }),
-      secret: config.session.secret,
-      resave: false,
-      saveUninitialized: false,
-      cookie: {},
-    };
-    if (env === 'production') {
-      app.set('trust proxy', 1);
-      sess.cookie.secure = true;
-    }
-    app.use(session(sess));
-  })
-  .catch(() => {
-    console.error.bind(console, 'Connection error:');
-  });
+mongoose.connect(config.db.url);
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'Connection error:'));
+db.once('open', () => {
+  console.log('Connected to database!');
+});
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -49,6 +30,21 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, 'client/build')));
+
+const sess = {
+  store: new MongoStore({
+    mongooseConnection: db,
+  }),
+  secret: config.session.secret,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {},
+};
+if (env === 'production') {
+  app.set('trust proxy', 1);
+  sess.cookie.secure = true;
+}
+app.use(session(sess));
 
 app.use('/', routes);
 
