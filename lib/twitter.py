@@ -17,7 +17,7 @@ data = {
     'tweets': []
 }
 
-for tweet in query_tweets('from%3A' + username, 100)[:100]:
+for tweet in query_tweets('from%3A' + username, 300)[:300]:
     text = (tweet.text + '\n').encode('utf-8')
     data['tweets'].append({
         '_id': tweet.id,

@@ -17,7 +17,7 @@ const model = mongoose.model(
     date: {
       type: Number,
     },
-    caption: {
+    text: {
       type: String,
     },
   })
