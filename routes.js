@@ -1,5 +1,5 @@
 const express = require('express');
-const path = require('path');
+// const path = require('path');
 const fs = require('mz/fs');
 const { exec } = require('mz/child_process');
 
@@ -12,10 +12,6 @@ const Tweet = require('./models/tweet');
 // const User = require('./models/user');
 
 const router = express.Router();
-
-router.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
 
 const saveInstagramPosts = instagramPosts => {
   InstagramPost.create(instagramPosts).catch(err => {
