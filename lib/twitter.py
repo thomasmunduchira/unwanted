@@ -1,5 +1,6 @@
 import sys
 import os
+import errno
 import json
 from twitterscraper import query_tweets
 
@@ -19,6 +20,7 @@ data = {
 for tweet in query_tweets('from%3A' + username, 100)[:100]:
     text = (tweet.text + '\n').encode('utf-8')
     data['tweets'].append({
+        '_id': tweet.id,
         'text': tweet.text
     })
 

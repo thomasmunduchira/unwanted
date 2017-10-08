@@ -1,5 +1,6 @@
 import sys
 import os
+import errno
 import shutil
 from instaLooter import InstaLooter
 
@@ -15,7 +16,7 @@ except OSError as exception:
 try:
     shutil.rmtree('./data/' + id + '/instagramData')
 except OSError as e:
-    print ('Error: %s - %s.' % (e.filename,e.strerror))
+    print('Error: %s - %s.' % (e.filename,e.strerror))
 
 looter = InstaLooter(profile=username, dump_only=True, directory='./data/' + id + '/instagramData')
 looter.download()
